@@ -1,0 +1,136 @@
+
+2:
+  role_id : 2
+  controller_action_id: 4
+
+3:
+  role_id : 2
+  controller_action_id: 5
+
+5:
+  role_id : 2
+  controller_action_id: 15
+
+6:
+  role_id : 1
+  controller_action_id: 2
+
+7:
+  role_id : 1
+  controller_action_id: 3
+
+8:
+  role_id : 1
+  controller_action_id: 4
+
+9:
+  role_id : 1
+  controller_action_id: 5
+
+10:
+  role_id : 1
+  controller_action_id: 6
+
+11:
+  role_id : 1
+  controller_action_id: 7
+
+12:
+  role_id : 1
+  controller_action_id: 9
+
+13:
+  role_id : 1
+  controller_action_id: 10
+
+14:
+  role_id : 1
+  controller_action_id: 11
+
+15:
+  role_id : 1
+  controller_action_id: 12
+
+16:
+  role_id : 1
+  controller_action_id: 13
+
+17:
+  role_id : 1
+  controller_action_id: 14
+
+18:
+  role_id : 1
+  controller_action_id: 15
+
+19:
+  role_id : 1
+  controller_action_id: 17
+
+20:
+  role_id : 1
+  controller_action_id: 18
+
+21:
+  role_id : 1
+  controller_action_id: 19
+
+22:
+  role_id : 1
+  controller_action_id: 20
+
+23:
+  role_id : 1
+  controller_action_id: 21
+
+24:
+  role_id : 2
+  controller_action_id: 21
+
+25:
+  role_id : 1
+  controller_action_id: 22
+
+26:
+  role_id : 1
+  controller_action_id: 23
+
+27:
+  role_id : 1
+  controller_action_id: 24
+
+28:
+  role_id : 1
+  controller_action_id: 25
+
+29:
+  role_id : 2
+  controller_action_id: 25
+
+30:
+  role_id : 1
+  controller_action_id: 26
+
+31:
+  role_id : 1
+  controller_action_id: 27
+
+32:
+  role_id : 2
+  controller_action_id: 27
+
+33:
+  role_id : 3
+  controller_action_id: 5
+
+34:
+  role_id : 3
+  controller_action_id: 20
+
+35:
+  role_id : 3
+  controller_action_id: 15
+
+36:
+  role_id : 3
+  controller_action_id: 26
