@@ -11,11 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111224947) do
+ActiveRecord::Schema.define(version: 20150118161648) do
 
   create_table "api_keys", force: true do |t|
     t.integer  "user_id"
     t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "representative"
+    t.string   "nit"
+    t.string   "address"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,6 +46,31 @@ ActiveRecord::Schema.define(version: 20150111224947) do
   add_index "controller_actions_roles", ["controller_action_id"], name: "index_controller_actions_roles_on_controller_action_id"
   add_index "controller_actions_roles", ["role_id"], name: "index_controller_actions_roles_on_role_id"
 
+  create_table "coordinates", force: true do |t|
+    t.integer  "ride_id"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gps", force: true do |t|
+    t.float    "battery"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rides", force: true do |t|
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.float    "average_speed"
+    t.integer  "vehicule_id"
+    t.integer  "user_id"
+    t.integer  "gps_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -48,6 +84,15 @@ ActiveRecord::Schema.define(version: 20150111224947) do
     t.integer  "role_id"
     t.string   "email"
     t.string   "password"
+  end
+
+  create_table "vehicles", force: true do |t|
+    t.string   "brand"
+    t.string   "model"
+    t.string   "placa"
+    t.integer  "company_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

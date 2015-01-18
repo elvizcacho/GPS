@@ -13218,3 +13218,46 @@ Migrating to AddSearchToUserAndRoles (20150111224947)
             FROM sqlite_temp_master
             WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
 [0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateCompanies (20150118155450)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "companies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "phone" varchar(255), "representative" varchar(255), "nit" varchar(255), "address" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150118155450"]]
+  [1m[36m (114.6ms)[0m  [1mcommit transaction[0m
+Migrating to CreateVehicles (20150118160057)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "vehicles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "brand" varchar(255), "model" varchar(255), "placa" varchar(255), "company_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150118160057"]]
+  [1m[36m (114.1ms)[0m  [1mcommit transaction[0m
+Migrating to CreateRides (20150118161448)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "rides" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "start_at" datetime, "end_at" datetime, "average_speed" float, "vehicule_id" integer, "user_id" integer, "gps_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150118161448"]]
+  [1m[36m (119.4ms)[0m  [1mcommit transaction[0m
+Migrating to CreateGps (20150118161510)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "gps" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "battery" float, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150118161510"]]
+  [1m[36m (111.7ms)[0m  [1mcommit transaction[0m
+Migrating to CreateCoordinates (20150118161648)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "coordinates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "ride_id" integer, "latitude" decimal, "longitude" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150118161648"]]
+  [1m[36m (110.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_controller_action_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_controller_action_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+
