@@ -134,3 +134,47 @@
   name: update own user password
   controller_action_id: 15
 
+28:
+  id: 28
+  name: search
+  controller_action_id: 1
+
+29:
+  id: 29
+  name: search
+  controller_action_id: 8
+
+30:
+  id: 30
+  name: companies
+  controller_action_id: 
+
+31:
+  id: 31
+  name: index
+  controller_action_id: 30
+
+32:
+  id: 32
+  name: show
+  controller_action_id: 30
+
+33:
+  id: 33
+  name: create
+  controller_action_id: 30
+
+34:
+  id: 34
+  name: destroy
+  controller_action_id: 30
+
+35:
+  id: 35
+  name: update
+  controller_action_id: 30
+
+36:
+  id: 36
+  name: search
+  controller_action_id: 30

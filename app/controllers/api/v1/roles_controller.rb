@@ -250,7 +250,7 @@ module Api
               query_response = Role.search(params[:search]).limit(limit).offset(from).to_a
               render json: ActiveSupport::JSON.encode(query_response), status: 206
             else
-              render json: {response: t('users.index.response')}, status: 416 
+              render json: {response: t('roles.index.response')}, status: 416 
             end
           end
 

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>class Company - Rails Application Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">ActiveRecord::Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-create_from_model">::create_from_model</a>
+    
+    <li ><a href="#method-c-destroy_from_model">::destroy_from_model</a>
+    
+    <li ><a href="#method-c-search">::search</a>
+    
+    <li ><a href="#method-c-update_from_model">::update_from_model</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Company">
+  <h1 id="class-Company" class="class">
+    class Company
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-create_from_model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_from_model</span><span
+            class="method-args">(hash)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_from_model-source">
+            <pre><span class="ruby-comment"># File app/models/company.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_from_model</span>(<span class="ruby-identifier">hash</span>)
+    <span class="ruby-identifier">error_messages</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>], <span class="ruby-value">:phone</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:phone</span>], <span class="ruby-value">:representative</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:representative</span>], <span class="ruby-value">:nit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:nit</span>], <span class="ruby-value">:address</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:address</span>], <span class="ruby-value">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:email</span>]).<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">messages</span> <span class="ruby-comment">#creates role or gets the error messsages</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">error_messages</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>  <span class="ruby-comment">#If there are errors I return them</span>
+        <span class="ruby-keyword">return</span> {<span class="ruby-identifier">errors</span><span class="ruby-operator">:</span> <span class="ruby-identifier">error_messages</span>}, <span class="ruby-value">400</span>
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-keyword">return</span> {<span class="ruby-identifier">response</span><span class="ruby-operator">:</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;roles.create.response&#39;</span>), <span class="ruby-identifier">role_id</span><span class="ruby-operator">:</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">id</span>}, <span class="ruby-value">201</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-destroy_from_model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destroy_from_model</span><span
+            class="method-args">(hash)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="destroy_from_model-source">
+            <pre><span class="ruby-comment"># File app/models/company.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">destroy_from_model</span>(<span class="ruby-identifier">hash</span>)
+    <span class="ruby-keyword">begin</span>
+        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">hash</span>[<span class="ruby-value">:id</span>]).<span class="ruby-identifier">destroy</span>  <span class="ruby-comment">#deletes this company</span>
+        <span class="ruby-keyword">return</span> {<span class="ruby-identifier">response</span><span class="ruby-operator">:</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;roles.delete.response&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:id</span>])}, <span class="ruby-value">200</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span> <span class="ruby-comment">#If company is not found an exception is arise.</span>
+        <span class="ruby-keyword">return</span> {<span class="ruby-identifier">response</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{e}&quot;</span>}, <span class="ruby-value">404</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search</span><span
+            class="method-args">(search)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="search-source">
+            <pre><span class="ruby-comment"># File app/models/company.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">search</span>)
+    <span class="ruby-identifier">search_condition</span> = <span class="ruby-string">&quot;%&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">search</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;%&quot;</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&#39;name LIKE ? OR phone LIKE ? OR representative LIKE ? OR nit LIKE ? OR address LIKE ? OR email LIKE ?&#39;</span>, <span class="ruby-identifier">search_condition</span>, <span class="ruby-identifier">search_condition</span>, <span class="ruby-identifier">search_condition</span>, <span class="ruby-identifier">search_condition</span>, <span class="ruby-identifier">search_condition</span>, <span class="ruby-identifier">search_condition</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-update_from_model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_from_model</span><span
+            class="method-args">(hash)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_from_model-source">
+            <pre><span class="ruby-comment"># File app/models/company.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_from_model</span>(<span class="ruby-identifier">hash</span>)
+    <span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">company</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">hash</span>[<span class="ruby-value">:id</span>]) <span class="ruby-comment">#gets the company</span>
+        <span class="ruby-identifier">company</span>.<span class="ruby-identifier">assign_attributes</span>(
+            <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>],
+            <span class="ruby-value">:phone</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:phone</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">phone</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:phone</span>],
+            <span class="ruby-value">:representative</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:representative</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">representative</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:representative</span>],
+            <span class="ruby-value">:nit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:nit</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">nit</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:nit</span>],
+            <span class="ruby-value">:address</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:address</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">address</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:address</span>],
+            <span class="ruby-value">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:email</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">email</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:email</span>]
+        ) <span class="ruby-comment">#assign the model attributes but not save</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">company</span>.<span class="ruby-identifier">valid?</span> <span class="ruby-comment">#valids the attributes</span>
+            <span class="ruby-identifier">company</span>.<span class="ruby-identifier">save</span>  <span class="ruby-comment">#saves the attributes into table company</span>
+            <span class="ruby-keyword">return</span> {<span class="ruby-identifier">response</span><span class="ruby-operator">:</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&#39;roles.update.response&#39;</span>, <span class="ruby-identifier">id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:id</span>])}, <span class="ruby-value">200</span>
+        <span class="ruby-keyword">else</span>
+            <span class="ruby-identifier">error_messages</span> = <span class="ruby-identifier">company</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">messages</span>  <span class="ruby-comment">#if there are errors, these ones are returned</span>
+            <span class="ruby-keyword">return</span> {<span class="ruby-identifier">errors</span><span class="ruby-operator">:</span> <span class="ruby-identifier">error_messages</span>}, <span class="ruby-value">400</span>
+        <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span> <span class="ruby-comment">#If company is not found an exception is arise.</span>
+        <span class="ruby-keyword">return</span> {<span class="ruby-identifier">response</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{e}&quot;</span>}, <span class="ruby-value">404</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

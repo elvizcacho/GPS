@@ -141,7 +141,7 @@
 
           
           <div class="method-source-code" id="create_from_model-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 35</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_from_model</span>(<span class="ruby-identifier">hash</span>)
     <span class="ruby-identifier">error_messages</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:name</span>], <span class="ruby-value">:role_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:role_id</span>], <span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:password</span>], <span class="ruby-value">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:email</span>]).<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">messages</span> <span class="ruby-comment">#creates an user and gets the errors If they exist</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">error_messages</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span> <span class="ruby-comment">#are there errors?</span>
@@ -179,7 +179,7 @@
 
           
           <div class="method-source-code" id="destroy_from_model-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">destroy_from_model</span>(<span class="ruby-identifier">hash</span>)
     <span class="ruby-identifier">permissions</span>, <span class="ruby-identifier">role_permissions</span> = <span class="ruby-identifier">get_permissions</span>(<span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:controller</span>], <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:action</span>], <span class="ruby-value">:token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:token</span>]) <span class="ruby-comment">#gets the permissions of the role associated by user token and the action</span>
     <span class="ruby-comment">#permissions</span>
@@ -227,7 +227,7 @@
 
           
           <div class="method-source-code" id="get_permissions-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_permissions</span>(<span class="ruby-identifier">params</span>)
     <span class="ruby-identifier">controller_request</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:controller</span>].<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/v\d\.{0,1}\d*\/([^\/]+)$/</span>)[<span class="ruby-value">0</span>][<span class="ruby-value">0</span>] <span class="ruby-comment">#gets the controller name</span>
     <span class="ruby-identifier">controller_db</span> = <span class="ruby-constant">ControllerAction</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">controller_request</span>, <span class="ruby-value">:controller_action_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>).<span class="ruby-identifier">first</span> <span class="ruby-comment">#gets the controller from db</span>
@@ -266,7 +266,7 @@
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 123</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">search</span>)
     <span class="ruby-identifier">search_condition</span> = <span class="ruby-string">&quot;%&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">search</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;%&quot;</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&#39;name LIKE ? OR email LIKE ?&#39;</span>, <span class="ruby-identifier">search_condition</span>, <span class="ruby-identifier">search_condition</span>)
@@ -300,7 +300,7 @@
 
           
           <div class="method-source-code" id="update_from_model-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 63</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_from_model</span>(<span class="ruby-identifier">hash</span>)
     <span class="ruby-identifier">permissions</span>, <span class="ruby-identifier">role_permissions</span> = <span class="ruby-identifier">get_permissions</span>(<span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:controller</span>], <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:action</span>], <span class="ruby-value">:token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:token</span>]) <span class="ruby-comment">#gets the permissions of the role associated by user token and the action</span>
     <span class="ruby-comment">#permissions</span>
@@ -359,7 +359,7 @@
 
           
           <div class="method-source-code" id="update_password-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 93</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_password</span>(<span class="ruby-identifier">hash</span>)
     <span class="ruby-identifier">permissions</span>, <span class="ruby-identifier">role_permissions</span> = <span class="ruby-identifier">get_permissions</span>(<span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:controller</span>], <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:action</span>], <span class="ruby-value">:token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-value">:token</span>]) <span class="ruby-comment">#gets the permissions of the role associated by user token and the action</span>
     <span class="ruby-comment">#permissions</span>
@@ -426,7 +426,7 @@
 
           
           <div class="method-source-code" id="create_api_key-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create_api_key</span> <span class="ruby-comment">#when an user is created its token is created after save it</span>
     <span class="ruby-constant">ApiKey</span>.<span class="ruby-identifier">create</span> <span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -459,7 +459,7 @@
 
           
           <div class="method-source-code" id="password_to_md5_on_create-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 27</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">password_to_md5_on_create</span> <span class="ruby-comment">#encrypts password before save</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">password</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">password</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -492,7 +492,7 @@
 
           
           <div class="method-source-code" id="password_to_md5_on_update-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 31</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">password_to_md5_on_update</span> <span class="ruby-comment">#encrypts password before update</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">password</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">password</span>)
 <span class="ruby-keyword">end</span></pre>

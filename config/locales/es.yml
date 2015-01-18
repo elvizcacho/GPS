@@ -37,7 +37,7 @@ es:
       response: "Usuario %{id} fue eliminado"
       error1: "Unicamente el administrador o el dueño de la cuenta pueden solicitar esta acción"
     update:
-      response: "Usuario %{id} fue eliminado"
+      response: "Usuario %{id} fue actualizado"
       error1: "Unicamente el administrador o el dueño de la cuenta pueden solicitar esta acción"
     update_password:
       response: "La contraseña del usuario %{id} fue actualizada"
@@ -46,6 +46,25 @@ es:
     login:
       response: "email o contraseña invalidos"
 
+  roles:
+    index:
+      response: "El rango no fue definido en el header"
+    created:
+      response: "Rol fue creado"
+    delete:
+      response: "Rol %{id} fue eliminado"
+    update:
+      response: "Rol %{id} fue actualizado"
+
+  companies:
+    index:
+      response: "El rango no fue definido en el header"
+    created:
+      response: "Compañia fue creada"
+    delete:
+      response: "Compañia %{id} fue eliminada"
+    update:
+      response: "Compañia %{id} fue actualizada"
 
 #Validation errors
   activerecord:
@@ -70,3 +89,23 @@ es:
             name:
               blank: "el nombre del rol no puede ser nulo"
               taken: "el nombre del rol ya ha sido registrado"
+
+        company:
+          attributes:
+            name:
+              blank: "el nombre de la compañia no puede ser nulo"
+              taken: "el nombre de la compañia ya ha sido registrado"
+            phone:
+              blank: "el telefono no puede ser nulo"
+              too_short: "La longitud del nombre debe ser minimo de %{count} caracteres"
+            representative:
+              blank: "el representante no puede ser nulo"
+              too_short: "La longitud del nombre del representante debe ser minimo de %{count} caracteres"
+            nit:
+              blank: "el NIT no puede ser nulo"
+              taken: "el NIT ya ha sido registrado"
+            address:
+              blank: "el direccion no puede ser nula"
+            email:
+              blank: "email no puede ser nulo"
+              invalid: "email no valido"

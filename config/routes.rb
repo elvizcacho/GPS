@@ -22,6 +22,11 @@ Rails.application.routes.draw do
           get 'search', to: 'roles#search'
         end
       end
+      resources :companies, except: [:new, :edit] do
+        collection do
+          get 'search', to: 'companies#search'
+        end
+      end
       resources :controller_actions, only: [:index]
     end
   end

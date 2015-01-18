@@ -56,12 +56,25 @@ en:
     update:
       response: "Role %{id} was updated"
     
+  companies:
+    index:
+      response: "No rage header defined"
+    created:
+      response: "Company was created"
+    delete:
+      response: "Company %{id} was deleted"
+    update:
+      response: "Company %{id} was updated"
 
 #Validation errors
   activerecord:
     errors:
       models:
         user: 
+          attributes:
+            email:
+              invalid: "invalid email"
+        company: 
           attributes:
             email:
               invalid: "invalid email"
