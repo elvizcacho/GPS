@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 	
 	has_one :api_key, dependent: :destroy
 	belongs_to :role
+    has_many :rides
     after_create :create_api_key
     before_create :password_to_md5_on_create
     before_update :password_to_md5_on_update
