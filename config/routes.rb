@@ -35,6 +35,7 @@ Rails.application.routes.draw do
           get 'search', to: 'vehicles#search'
         end
       end
+      resources :rides, except: [:new, :edit]
       resources :controller_actions, only: [:index]
     end
   end

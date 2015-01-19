@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119013050) do
+ActiveRecord::Schema.define(version: 20150119171324) do
 
   create_table "api_keys", force: true do |t|
     t.integer  "user_id"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20150119013050) do
     t.datetime "started_at"
     t.datetime "ended_at"
     t.float    "average_speed"
-    t.integer  "vehicule_id"
+    t.integer  "vehicle_id"
     t.integer  "user_id"
     t.integer  "gps_id"
     t.datetime "created_at"

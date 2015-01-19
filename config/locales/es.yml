@@ -76,6 +76,16 @@ es:
     update:
       response: "Vehiculo %{id} fue actualizado"
 
+  rides:
+    index:
+      response: "El rango no fue definido en el header"
+    create:
+      response: "Recorrido fue creado"
+    delete:
+      response: "Recorrido %{id} fue eliminado"
+    update:
+      response: "Recorrido %{id} fue actualizado"
+
 #Validation errors
   activerecord:
     errors:
@@ -133,3 +143,14 @@ es:
               taken: "la placa ya ha sido registrada"
             company_id:
               blank: "el carro debe pertener a alguna compañia"
+
+        ride:
+          attributes:
+            vehicle_id:
+              blank: "el recorrido debe tener un vehiculo asociado"
+            user_id:
+              blank: "el recorrido debe tener un usuario asociado"
+            gps_id:
+              blank: "el recorrido debe tener un GPS asociado"
+            average_speed:
+              not_a_number: "no es un numero"

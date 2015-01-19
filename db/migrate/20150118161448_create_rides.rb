@@ -4,7 +4,7 @@ class CreateRides < ActiveRecord::Migration
       t.datetime :started_at
       t.datetime :ended_at
       t.float :average_speed
-      t.integer :vehicule_id
+      t.integer :vehicle_id
       t.integer :user_id
       t.integer :gps_id
       t.timestamps

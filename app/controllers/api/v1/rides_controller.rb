@@ -23,21 +23,25 @@ module Api
         #
         #   resp.body
         #   =>   [{
-        #        "id": 1,
-        #        "brand": "Lanos",
-        #        "model": "2002",
-        #        "license_plate": "SIC261",
-        #        "company_id": 1,
-        #        "created_at": "2015-01-19T01:36:31.729Z",
-        #        "updated_at": "2015-01-19T01:36:31.729Z"
+        #            "id": 1,
+        #            "started_at": "2001-11-30T19:00:00.000Z",
+        #            "ended_at": "2001-12-01T01:00:00.000Z",
+        #            "average_speed": 33.2,
+        #            "vehicle_id": 1,
+        #            "user_id": 1,
+        #            "gps_id": 1,
+        #            "created_at": "2015-01-19T17:34:15.102Z",
+        #            "updated_at": "2015-01-19T17:57:24.037Z"
         #        }, {
-        #        "id": 2,
-        #        "brand": "Aveo",
-        #        "model": "2008",
-        #        "license_plate": "FTY264",
-        #        "company_id": 1,
-        #        "created_at": "2015-01-19T01:36:31.730Z",
-        #        "updated_at": "2015-01-19T01:36:31.730Z"
+        #            "id": 2,
+        #            "started_at": null,
+        #            "ended_at": null,
+        #            "average_speed": null,
+        #            "vehicle_id": 1,
+        #            "user_id": 1,
+        #            "gps_id": 1,
+        #            "created_at": "2015-01-19T17:34:15.103Z",
+        #            "updated_at": "2015-01-19T17:34:15.103Z"
         #        }]
 		#
 
@@ -71,13 +75,15 @@ module Api
         #
         #   resp.body
         #   =>   {
-        #            "id": 2,
-        #            "brand": "Aveo",
-        #            "model": "2008",
-        #            "license_plate": "FTY264",
-        #            "company_id": 1,
-        #            "created_at": "2015-01-19T01:36:31.730Z",
-        #            "updated_at": "2015-01-19T01:36:31.730Z"
+        #            "id": 1,
+        #            "started_at": "2001-11-30T19:00:00.000Z",
+        #            "ended_at": "2001-12-01T01:00:00.000Z",
+        #            "average_speed": 33.2,
+        #            "vehicle_id": 1,
+        #            "user_id": 1,
+        #            "gps_id": 1,
+        #            "created_at": "2015-01-19T17:34:15.102Z",
+        #            "updated_at": "2015-01-19T17:57:24.037Z"
         #        }
         #
 
@@ -115,6 +121,7 @@ module Api
         #         "response": "Ride was created",
         #         "id": 2
         #      }
+        #
 
         def create
           	response, status = Ride.create_from_model(:started_at => params[:started_at], :ended_at => params[:ended_at], :average_speed => params[:average_speed], :vehicle_id => params[:vehicle_id], :user_id => params[:user_id], :gps_id => params[:gps_id])
@@ -174,7 +181,7 @@ module Api
         #      }
 
         def update
-            response, status = Vehicle.update_from_model(:id => params[:id], :started_at => params[:started_at], :ended_at => params[:ended_at], :average_speed => params[:average_speed], :vehicle_id => params[:vehicle_id], :user_id => params[:user_id], :gps_id => params[:gps_id])
+            response, status = Ride.update_from_model(:id => params[:id], :started_at => params[:started_at], :ended_at => params[:ended_at], :average_speed => params[:average_speed], :vehicle_id => params[:vehicle_id], :user_id => params[:user_id], :gps_id => params[:gps_id])
             render :json => response, :status => status
         end
 

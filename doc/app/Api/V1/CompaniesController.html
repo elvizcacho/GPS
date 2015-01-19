@@ -216,7 +216,7 @@ resp.body
           <div class="method-source-code" id="destroy-source">
             <pre><span class="ruby-comment"># File app/controllers/api/v1/companies_controller.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-    <span class="ruby-identifier">response</span>, <span class="ruby-identifier">status</span> = <span class="ruby-constant">Company</span>.<span class="ruby-identifier">destroy_from_model</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>], <span class="ruby-value">:token</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:token</span>])
+    <span class="ruby-identifier">response</span>, <span class="ruby-identifier">status</span> = <span class="ruby-constant">Company</span>.<span class="ruby-identifier">destroy_from_model</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">response</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">status</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -259,7 +259,7 @@ token - API token [Required]</pre>
 <h1 id="method-i-get_vehicles-label-Examples">Examples<span><a href="#method-i-get_vehicles-label-Examples">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
 <pre>header:
-range: items=0-1
+range: items=0-2
 resp = conn.get(&quot;/api/v1/companies/1/vehicles&quot;, &quot;token&quot; =&gt; &quot;dcbb7b36acd4438d07abafb8e28605a4&quot;)
 
 resp.status
