@@ -249,3 +249,32 @@
   name: update
   controller_action_id: 45
 
+51:
+  id: 51
+  name: gps
+  controller_action_id: 
+
+52:
+  id: 52
+  name: index
+  controller_action_id: 51
+
+53:
+  id: 53
+  name: show
+  controller_action_id: 51
+
+54:
+  id: 54
+  name: create
+  controller_action_id: 51
+
+55:
+  id: 55
+  name: destroy
+  controller_action_id: 51
+
+56:
+  id: 56
+  name: update
+  controller_action_id: 51

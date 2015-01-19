@@ -36,6 +36,7 @@ Rails.application.routes.draw do
         end
       end
       resources :rides, except: [:new, :edit]
+      resources :gps, except: [:new, :edit]
       resources :controller_actions, only: [:index]
     end
   end

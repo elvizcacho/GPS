@@ -86,6 +86,16 @@ es:
     update:
       response: "Recorrido %{id} fue actualizado"
 
+  gps:
+    index:
+      response: "El rango no fue definido en el header"
+    create:
+      response: "GPS fue creado"
+    delete:
+      response: "GPS %{id} fue eliminado"
+    update:
+      response: "GPS %{id} fue actualizado"
+
 #Validation errors
   activerecord:
     errors:
@@ -153,4 +163,9 @@ es:
             gps_id:
               blank: "el recorrido debe tener un GPS asociado"
             average_speed:
+              not_a_number: "no es un numero"
+
+        gps:
+          attributes:
+            battery:
               not_a_number: "no es un numero"

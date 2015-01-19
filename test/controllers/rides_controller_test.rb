@@ -41,7 +41,6 @@ module Api
 
         test 'only admin can update a ride' do
           put :update, {:id => 1, :token => '0474eee1800353d61a5de09259ee2f9e', :average_speed => 33.2}
-          puts "#{Ride.find(1).average_speed}"
           assert(Ride.find(1).average_speed == 33.2, 'ride was updated by admin')
         end
 
