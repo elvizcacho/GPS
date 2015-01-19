@@ -15,7 +15,7 @@ module Api
         # header:
         #   range - items=num-num
         # = Examples
-        #   range: items=0-1
+        #   range: items=0-2
         #   resp = conn.get("/api/v1/gps", "token" => "dcbb7b36acd4438d07abafb8e28605a4")
         #   
         #   resp.status
