@@ -26,6 +26,9 @@ Rails.application.routes.draw do
         collection do
           get 'search', to: 'companies#search'
         end
+        member do
+          get 'vehicles', to: 'companies#get_vehicles'
+        end
       end
       resources :vehicles, except: [:new, :edit] do
         collection do

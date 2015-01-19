@@ -45,6 +45,15 @@ module Api
         assert(Company.find(1).name == 'super', 'company was updated by admin')
       end
 
+      #get_vechicles
+      test "should get 2 vechicles" do
+        @request.headers["Range"] = 'items=0-1'
+        get :get_vehicles, {:id => 1, :token => '0474eee1800353d61a5de09259ee2f9e'}
+        obj = ActiveSupport::JSON.decode(@response.body)
+        assert_response(206, '206 status code')
+        assert(obj.length == 2, 'it returned 2 vechicles')
+      end
+
 	  end
   end
 end

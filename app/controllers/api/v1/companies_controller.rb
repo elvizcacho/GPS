@@ -148,7 +148,7 @@ module Api
         #      }
 
         def destroy
-            response, status = Company.destroy_from_model(:id => params[:id], :token => params[:token])
+            response, status = Company.destroy_from_model(:id => params[:id])
             render :json => response, :status => status
         end
 
@@ -222,6 +222,66 @@ module Api
             from, to = get_range_header()
             limit = to - from + 1
             query_response = Company.search(params[:search]).limit(limit).offset(from).to_a
+            render json: ActiveSupport::JSON.encode(query_response), status: 206
+          else
+            render json: {response: t('companies.index.response')}, status: 416 
+          end
+        end
+
+        ##
+        # Gets the vehicles of the company
+        #
+        # GET /api/v1/companies/:id/vehicles
+        #
+        # header:
+        #   range - items=num-num
+        #
+        # params:
+        #   id - integer     
+        #   token - API token [Required]
+        #      
+        # = Examples
+        #   
+        #   header:
+        #   range: items=0-2
+        #   resp = conn.get("/api/v1/companies/1/vehicles", "token" => "dcbb7b36acd4438d07abafb8e28605a4")
+        #   
+        #   resp.status
+        #   => 206 - Partial Content
+        #
+        #   resp.body
+        #   => [{
+        #        "id": 1,
+        #        "brand": "Lanos",
+        #        "model": "2002",
+        #        "license_plate": "SIC261",
+        #        "company_id": 1,
+        #        "created_at": "2015-01-19T16:15:26.274Z",
+        #        "updated_at": "2015-01-19T16:15:26.274Z"
+        #        }, {
+        #        "id": 2,
+        #        "brand": "Aveo",
+        #        "model": "2008",
+        #        "license_plate": "FTY264",
+        #        "company_id": 1,
+        #        "created_at": "2015-01-19T16:15:26.275Z",
+        #        "updated_at": "2015-01-19T16:15:26.275Z"
+        #        }, {
+        #        "id": 5,
+        #        "brand": "Porche",
+        #        "model": "2000",
+        #        "license_plate": "XRT123",
+        #        "company_id": 1,
+        #        "created_at": "2015-01-19T16:21:03.643Z",
+        #        "updated_at": "2015-01-19T16:21:03.643Z"
+        #        }]
+        #
+
+        def get_vehicles
+          if request.headers['Range']
+            from, to = get_range_header()
+            limit = to - from + 1
+            query_response = Company.find(params[:id]).vehicles.limit(limit).offset(from).to_a
             render json: ActiveSupport::JSON.encode(query_response), status: 206
           else
             render json: {response: t('companies.index.response')}, status: 416 

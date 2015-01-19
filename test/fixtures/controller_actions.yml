@@ -213,3 +213,8 @@
   id: 43
   name: search
   controller_action_id: 37
+
+44:
+  id: 44
+  name: get_vehicles
+  controller_action_id: 30

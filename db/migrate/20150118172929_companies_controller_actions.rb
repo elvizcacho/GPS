@@ -11,6 +11,7 @@ class CompaniesControllerActions < ActiveRecord::Migration
     ControllerAction.create(:name => "destroy", :controller_action_id => controller.id)
     ControllerAction.create(:name => "update", :controller_action_id => controller.id)
     ControllerAction.create(:name => "search", :controller_action_id => controller.id)
+    ControllerAction.create(:name => "get_vehicles", :controller_action_id => controller.id)
 
   	actions = []
   	actions << controller.controller_actions.where(name: 'index').first
@@ -19,6 +20,7 @@ class CompaniesControllerActions < ActiveRecord::Migration
     actions << controller.controller_actions.where(name: 'destroy').first
     actions << controller.controller_actions.where(name: 'update').first
     actions << controller.controller_actions.where(name: 'search').first
+    actions << controller.controller_actions.where(name: 'get_vehicles').first
 
   	#asigns actions to role
   	admin = Role.find(1)

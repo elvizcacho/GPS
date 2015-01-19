@@ -190,3 +190,7 @@
 50:
   role_id : 1
   controller_action_id: 43
+
+51:
+  role_id : 1
+  controller_action_id: 44

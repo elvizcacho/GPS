@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20150119013050) do
   end
 
   create_table "rides", force: true do |t|
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.datetime "started_at"
+    t.datetime "ended_at"
     t.float    "average_speed"
     t.integer  "vehicule_id"
     t.integer  "user_id"

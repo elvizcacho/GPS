@@ -21619,3 +21619,1420 @@ Processing by Api::V1::VehiclesController#update as JSON
   [1m[36mCACHE (0.0ms)[0m  [1mSELECT  1 AS one FROM "vehicles"  WHERE ("vehicles"."license_plate" = 'GTY231' AND "vehicles"."id" != 5) LIMIT 1[0m
   [1m[35m (0.1ms)[0m  commit transaction
 Completed 200 OK in 63ms (Views: 0.2ms | ActiveRecord: 4.1ms)
+  [1m[36mCompany Load (0.3ms)[0m  [1mSELECT  "companies".* FROM "companies"  WHERE "companies"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCompany Load (0.3ms)[0m  SELECT  "companies".* FROM "companies"  WHERE "companies"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mVehicle Load (0.2ms)[0m  [1mSELECT "vehicles".* FROM "vehicles"  WHERE "vehicles"."company_id" = ?[0m  [["company_id", 1]]
+  [1m[36m (98.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (98.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20141217212455)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141217212455"]]
+  [1m[35m (121.1ms)[0m  commit transaction
+Migrating to CreateApiKeys (20141217215541)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "api_keys" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "token" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141217215541"]]
+  [1m[35m (169.1ms)[0m  commit transaction
+Migrating to RemoveEmailFromUsers (20141218151456)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  CREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "users"[0m
+  [1m[35m (0.4ms)[0m  DROP TABLE "users"
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "ausers"
+  [1m[36m (0.3ms)[0m  [1mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141218151456"]]
+  [1m[36m (108.7ms)[0m  [1mcommit transaction[0m
+Migrating to CreateRoles (20141223194758)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223194758"]]
+  [1m[36m (118.5ms)[0m  [1mcommit transaction[0m
+Migrating to CreateControllerActions (20141223195024)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223195024"]]
+  [1m[36m (114.0ms)[0m  [1mcommit transaction[0m
+Migrating to PermisosTable (20141223202326)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "roles_controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "role_id" integer, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223202326"]]
+  [1m[36m (88.8ms)[0m  [1mcommit transaction[0m
+Migrating to AddControllerToControllerAction (20141223203652)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "controller_actions" ADD "controller" varchar(255)[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223203652"]]
+  [1m[36m (106.3ms)[0m  [1mcommit transaction[0m
+Migrating to AddActionToControllerAction (20141223203746)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "controller_actions" ADD "action" varchar(255)[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223203746"]]
+  [1m[36m (98.1ms)[0m  [1mcommit transaction[0m
+Migrating to RemoveActionFromControllerAction (20141223204150)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mCREATE TEMPORARY TABLE "acontroller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime, "controller" varchar(255), "action" varchar(255)) [0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "controller_actions"
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "controller_actions"[0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime, "controller" varchar(255)) 
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "acontroller_actions"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "acontroller_actions"
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141223204150"]]
+  [1m[35m (113.5ms)[0m  commit transaction
+Migrating to RemoveControllerFromControllerAction (20141223204337)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TEMPORARY TABLE "acontroller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime, "controller" varchar(255)) 
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "controller_actions"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "controller_actions"
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "acontroller_actions"
+  [1m[36m (0.1ms)[0m  [1mDROP TABLE "acontroller_actions"[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223204337"]]
+  [1m[36m (128.9ms)[0m  [1mcommit transaction[0m
+Migrating to AddNameToControllerAction (20141223204410)
+  [1m[35m (0.4ms)[0m  begin transaction
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "controller_actions" ADD "name" varchar(255)[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223204410"]]
+  [1m[36m (103.0ms)[0m  [1mcommit transaction[0m
+Migrating to RemoveRolesControllerActions (20141223211241)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.7ms)[0m  [1mDROP TABLE "roles_controller_actions"[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223211241"]]
+  [1m[36m (103.5ms)[0m  [1mcommit transaction[0m
+Migrating to RolesControllerActions (20141223211400)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (1.0ms)[0m  [1mCREATE TABLE "roles_controller_actions" ("role_id" integer, "controller_action_id" integer) [0m
+  [1m[35m (0.4ms)[0m  CREATE  INDEX "index_roles_controller_actions_on_role_id" ON "roles_controller_actions" ("role_id")
+  [1m[36m (0.3ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_roles_controller_actions_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_roles_controller_actions_on_role_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  CREATE  INDEX "index_roles_controller_actions_on_controller_action_id" ON "roles_controller_actions" ("controller_action_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141223211400"]]
+  [1m[35m (116.6ms)[0m  commit transaction
+Migrating to Tabla2 (20141223215404)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "controller_actions_roles" ("role_id" integer, "controller_action_id" integer) 
+  [1m[36m (0.5ms)[0m  [1mCREATE  INDEX "index_controller_actions_roles_on_role_id" ON "controller_actions_roles" ("role_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_controller_actions_roles_on_controller_action_id" ON "controller_actions_roles" ("controller_action_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223215404"]]
+  [1m[36m (110.7ms)[0m  [1mcommit transaction[0m
+Migrating to RemoveUselessTable (20141223225317)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mDROP TABLE "roles_controller_actions"[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223225317"]]
+  [1m[36m (122.1ms)[0m  [1mcommit transaction[0m
+Migrating to AddRoleIdToUser (20141226160928)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "role_id" integer[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "users" ADD "email" varchar(255)
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "users" ADD "password" varchar(255)[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141226160928"]]
+  [1m[36m (235.5ms)[0m  [1mcommit transaction[0m
+Migrating to Initialization (20141231171743)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mRole Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "roles"  WHERE "roles"."name" = 'admin' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "roles" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:15:23.401641"], ["name", "admin"], ["updated_at", "2015-01-19 16:15:23.401641"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", "2015-01-19 16:15:23.411442"], ["name", "users"], ["updated_at", "2015-01-19 16:15:23.411442"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:23.412606"], ["name", "index"], ["updated_at", "2015-01-19 16:15:23.412606"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:23.413389"], ["name", "create"], ["updated_at", "2015-01-19 16:15:23.413389"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:23.414067"], ["name", "destroy"], ["updated_at", "2015-01-19 16:15:23.414067"]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 1], ["role_id", 1]]
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'admin@gmail.com' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password", "role_id", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", "2015-01-19 16:15:23.438217"], ["email", "admin@gmail.com"], ["name", "Sebastian"], ["password", "81dc9bdb52d04dc20036dbd8313ed055"], ["role_id", 1], ["updated_at", "2015-01-19 16:15:23.438217"]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "api_keys" ("created_at", "token", "updated_at", "user_id") VALUES (?, ?, ?, ?)[0m  [["created_at", "2015-01-19 16:15:23.443001"], ["token", "8e5f87059e0d6fc8dc55679f73b0c18a"], ["updated_at", "2015-01-19 16:15:23.443001"], ["user_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141231171743"]]
+  [1m[36m (157.3ms)[0m  [1mcommit transaction[0m
+Migrating to AddUpdateToControllerActions (20150101024325)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:23.624044"], ["name", "update"], ["updated_at", "2015-01-19 16:15:23.624044"]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150101024325"]]
+  [1m[36m (130.6ms)[0m  [1mcommit transaction[0m
+Migrating to AddRoleClient (20150101193243)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mRole Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "roles"  WHERE "roles"."name" = 'client' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "roles" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:15:23.763078"], ["name", "client"], ["updated_at", "2015-01-19 16:15:23.763078"]]
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'laura@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password", "role_id", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", "2015-01-19 16:15:23.769442"], ["email", "laura@gmail.com"], ["name", "Laura"], ["password", "81dc9bdb52d04dc20036dbd8313ed055"], ["role_id", 2], ["updated_at", "2015-01-19 16:15:23.769442"]]
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys"  WHERE "api_keys"."token" = '45c736ff5295bab49c9aad6e065b3c28' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "api_keys" ("created_at", "token", "updated_at", "user_id") VALUES (?, ?, ?, ?)  [["created_at", "2015-01-19 16:15:23.773983"], ["token", "45c736ff5295bab49c9aad6e065b3c28"], ["updated_at", "2015-01-19 16:15:23.773983"], ["user_id", 2]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 4], ["role_id", 2]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 5], ["role_id", 2]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150101193243"]]
+  [1m[35m (125.5ms)[0m  commit transaction
+Migrating to AddLoginAndShowToControllerActions (20150102181920)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:23.913273"], ["name", "login"], ["updated_at", "2015-01-19 16:15:23.913273"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:23.916970"], ["name", "show"], ["updated_at", "2015-01-19 16:15:23.916970"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150102181920"]]
+  [1m[36m (108.3ms)[0m  [1mcommit transaction[0m
+Migrating to RolesActions (20150102212303)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", "2015-01-19 16:15:24.028827"], ["name", "roles"], ["updated_at", "2015-01-19 16:15:24.028827"]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'roles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:24.030817"], ["name", "index"], ["updated_at", "2015-01-19 16:15:24.030817"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:24.031735"], ["name", "show"], ["updated_at", "2015-01-19 16:15:24.031735"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:24.032575"], ["name", "create"], ["updated_at", "2015-01-19 16:15:24.032575"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:24.033432"], ["name", "destroy"], ["updated_at", "2015-01-19 16:15:24.033432"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:24.034266"], ["name", "update"], ["updated_at", "2015-01-19 16:15:24.034266"]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 8], ["role_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150102212303"]]
+  [1m[36m (114.7ms)[0m  [1mcommit transaction[0m
+Migrating to AddRoleToUsers (20150103202650)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mControllerAction Load (0.5ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:24.158026"], ["name", "role"], ["updated_at", "2015-01-19 16:15:24.158026"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150103202650"]]
+  [1m[35m (110.4ms)[0m  commit transaction
+Migrating to AddUpdatePasswordToUsers (20150103220613)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:24.272872"], ["name", "update_password"], ["updated_at", "2015-01-19 16:15:24.272872"]]
+  [1m[35mRole Load (0.0ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update_password'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 15], ["role_id", 2]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150103220613"]]
+  [1m[35m (118.8ms)[0m  commit transaction
+Migrating to ControllerActionsActions (20150108175824)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:15:24.398245"], ["name", "controller_actions"], ["updated_at", "2015-01-19 16:15:24.398245"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'controller_actions' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 16], ["created_at", "2015-01-19 16:15:24.400263"], ["name", "index"], ["updated_at", "2015-01-19 16:15:24.400263"]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 16], ["role_id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150108175824"]]
+  [1m[35m (118.0ms)[0m  commit transaction
+Migrating to AdjustAdminPermitions (20150109164830)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "controller_actions_roles" WHERE "controller_actions_roles"."role_id" = ? AND "controller_actions_roles"."controller_action_id" = 1  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "controller_actions_roles" WHERE "controller_actions_roles"."role_id" = ? AND "controller_actions_roles"."controller_action_id" = 8  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 16]]
+  [1m[35mSQL (0.1ms)[0m  DELETE FROM "controller_actions_roles" WHERE "controller_actions_roles"."role_id" = ? AND "controller_actions_roles"."controller_action_id" = 16  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 2], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 3], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 4], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 5], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 6], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 7]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 7], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 9]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 9], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 10]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 10], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 11]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 11], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 12]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 12], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 13]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 13], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 14]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 14], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 15], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 17]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 17], ["role_id", 1]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150109164830"]]
+  [1m[35m (131.6ms)[0m  commit transaction
+Migrating to AddUpdateRole (20150109185956)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 5], ["created_at", "2015-01-19 16:15:24.687502"], ["name", "update role_id"], ["updated_at", "2015-01-19 16:15:24.687502"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 5], ["created_at", "2015-01-19 16:15:24.688639"], ["name", "update password"], ["updated_at", "2015-01-19 16:15:24.688639"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 5], ["created_at", "2015-01-19 16:15:24.689611"], ["name", "update other users"], ["updated_at", "2015-01-19 16:15:24.689611"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 5], ["created_at", "2015-01-19 16:15:24.690456"], ["name", "update itself"], ["updated_at", "2015-01-19 16:15:24.690456"]]
+  [1m[35mRole Load (0.0ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update role_id'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 18], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 19], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update other users'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 20], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 21], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 21], ["role_id", 2]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150109185956"]]
+  [1m[36m (146.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddPermissionsToRoles (20150109205119)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mControllerAction Load (0.5ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'roles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:24.855757"], ["name", "show_permissions"], ["updated_at", "2015-01-19 16:15:24.855757"]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:24.859372"], ["name", "assign_permissions"], ["updated_at", "2015-01-19 16:15:24.859372"]]
+  [1m[35mControllerAction Load (1.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'show_permissions'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'assign_permissions'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 8]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 22], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 23], ["role_id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150109205119"]]
+  [1m[35m (116.3ms)[0m  commit transaction
+Migrating to AddPermissionsToUsersDestroy (20150110225901)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 4], ["created_at", "2015-01-19 16:15:25.010090"], ["name", "destroy other users"], ["updated_at", "2015-01-19 16:15:25.010090"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 4], ["created_at", "2015-01-19 16:15:25.011360"], ["name", "destroy itself"], ["updated_at", "2015-01-19 16:15:25.011360"]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy other users'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 4]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 24], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 4]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 25], ["role_id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 4]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 25], ["role_id", 2]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150110225901"]]
+  [1m[36m (113.5ms)[0m  [1mcommit transaction[0m
+Migrating to AddPermissionsToUsersUpdatePassword (20150110233356)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mControllerAction Load (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update_password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 1]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 15], ["created_at", "2015-01-19 16:15:25.157645"], ["name", "update other users password"], ["updated_at", "2015-01-19 16:15:25.157645"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 15], ["created_at", "2015-01-19 16:15:25.158692"], ["name", "update own user password"], ["updated_at", "2015-01-19 16:15:25.158692"]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update other users password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 15]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 26], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update own user password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 15]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 27], ["role_id", 1]]
+  [1m[35mRole Load (0.0ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update own user password'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 15]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 27], ["role_id", 2]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150110233356"]]
+  [1m[35m (120.6ms)[0m  commit transaction
+Migrating to AddSearchToUserAndRoles (20150111224947)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.5ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:15:25.306201"], ["name", "search"], ["updated_at", "2015-01-19 16:15:25.306201"]]
+  [1m[35mRole Load (0.0ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 28], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'roles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:15:25.312800"], ["name", "search"], ["updated_at", "2015-01-19 16:15:25.312800"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 8]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 29], ["role_id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150111224947"]]
+  [1m[35m (137.4ms)[0m  commit transaction
+Migrating to CreateCompanies (20150118155450)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "companies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "phone" varchar(255), "representative" varchar(255), "nit" varchar(255), "address" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118155450"]]
+  [1m[35m (115.5ms)[0m  commit transaction
+Migrating to CreateVehicles (20150118160057)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "vehicles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "brand" varchar(255), "model" varchar(255), "license_plate" varchar(255), "company_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118160057"]]
+  [1m[35m (98.7ms)[0m  commit transaction
+Migrating to CreateRides (20150118161448)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (1.1ms)[0m  CREATE TABLE "rides" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "start_at" datetime, "end_at" datetime, "average_speed" float, "vehicule_id" integer, "user_id" integer, "gps_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118161448"]]
+  [1m[35m (100.3ms)[0m  commit transaction
+Migrating to CreateGps (20150118161510)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.8ms)[0m  CREATE TABLE "gps" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "battery" float, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118161510"]]
+  [1m[35m (103.4ms)[0m  commit transaction
+Migrating to CreateCoordinates (20150118161648)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "coordinates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "ride_id" integer, "latitude" decimal, "longitude" decimal, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118161648"]]
+  [1m[35m (115.9ms)[0m  commit transaction
+Migrating to CompaniesControllerActions (20150118172929)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:15:26.063557"], ["name", "companies"], ["updated_at", "2015-01-19 16:15:26.063557"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'companies' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:15:26.066788"], ["name", "index"], ["updated_at", "2015-01-19 16:15:26.066788"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 30], ["created_at", "2015-01-19 16:15:26.067583"], ["name", "show"], ["updated_at", "2015-01-19 16:15:26.067583"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:15:26.068300"], ["name", "create"], ["updated_at", "2015-01-19 16:15:26.068300"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 30], ["created_at", "2015-01-19 16:15:26.068979"], ["name", "destroy"], ["updated_at", "2015-01-19 16:15:26.068979"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:15:26.069727"], ["name", "update"], ["updated_at", "2015-01-19 16:15:26.069727"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 30], ["created_at", "2015-01-19 16:15:26.070444"], ["name", "search"], ["updated_at", "2015-01-19 16:15:26.070444"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:15:26.071176"], ["name", "get_vehicles"], ["updated_at", "2015-01-19 16:15:26.071176"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'index'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'show'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 30]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'create'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 30]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 30]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'get_vehicles'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 31], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 32], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 33], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 34], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 35], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 36], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 37], ["role_id", 1]]
+  [1m[35mCompany Exists (0.2ms)[0m  SELECT  1 AS one FROM "companies"  WHERE "companies"."name" = 'Company1' LIMIT 1
+  [1m[36mCompany Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "companies"  WHERE "companies"."nit" = '123456789' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "companies" ("address", "created_at", "email", "name", "nit", "phone", "representative", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["address", "CALLE 5A # 29 12"], ["created_at", "2015-01-19 16:15:26.093811"], ["email", "lauraherra@gmail.com"], ["name", "Company1"], ["nit", "123456789"], ["phone", "5608937"], ["representative", "Laura Herrera"], ["updated_at", "2015-01-19 16:15:26.093811"]]
+  [1m[36mCompany Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "companies"  WHERE "companies"."name" = 'Company2' LIMIT 1[0m
+  [1m[35mCompany Exists (0.1ms)[0m  SELECT  1 AS one FROM "companies"  WHERE "companies"."nit" = '987654321' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "companies" ("address", "created_at", "email", "name", "nit", "phone", "representative", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["address", "CALLE 100 # 14 83"], ["created_at", "2015-01-19 16:15:26.096125"], ["email", "joserodriguez@gmail.com"], ["name", "Company2"], ["nit", "987654321"], ["phone", "2776584"], ["representative", "Jose Rodriguez"], ["updated_at", "2015-01-19 16:15:26.096125"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150118172929"]]
+  [1m[36m (122.4ms)[0m  [1mcommit transaction[0m
+Migrating to VehiclesControllerActions (20150119013050)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", "2015-01-19 16:15:26.242649"], ["name", "vehicles"], ["updated_at", "2015-01-19 16:15:26.242649"]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'vehicles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 38], ["created_at", "2015-01-19 16:15:26.246736"], ["name", "index"], ["updated_at", "2015-01-19 16:15:26.246736"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 38], ["created_at", "2015-01-19 16:15:26.247850"], ["name", "show"], ["updated_at", "2015-01-19 16:15:26.247850"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 38], ["created_at", "2015-01-19 16:15:26.248886"], ["name", "create"], ["updated_at", "2015-01-19 16:15:26.248886"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 38], ["created_at", "2015-01-19 16:15:26.250053"], ["name", "destroy"], ["updated_at", "2015-01-19 16:15:26.250053"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 38], ["created_at", "2015-01-19 16:15:26.251238"], ["name", "update"], ["updated_at", "2015-01-19 16:15:26.251238"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 38], ["created_at", "2015-01-19 16:15:26.252932"], ["name", "search"], ["updated_at", "2015-01-19 16:15:26.252932"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'index'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 38]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'show'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 38]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'create'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 38]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 38]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 38]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 38]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 39], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 40], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 41], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 42], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 43], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 44], ["role_id", 1]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'SIC261' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Lanos"], ["company_id", 1], ["created_at", "2015-01-19 16:15:26.274059"], ["license_plate", "SIC261"], ["model", "2002"], ["updated_at", "2015-01-19 16:15:26.274059"]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'FTY264' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Aveo"], ["company_id", 1], ["created_at", "2015-01-19 16:15:26.275913"], ["license_plate", "FTY264"], ["model", "2008"], ["updated_at", "2015-01-19 16:15:26.275913"]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'TYU457' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Ford"], ["company_id", 2], ["created_at", "2015-01-19 16:15:26.277200"], ["license_plate", "TYU457"], ["model", "2011"], ["updated_at", "2015-01-19 16:15:26.277200"]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'GTY945' LIMIT 1
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Chevrolet"], ["company_id", 2], ["created_at", "2015-01-19 16:15:26.278518"], ["license_plate", "GTY945"], ["model", "2005"], ["updated_at", "2015-01-19 16:15:26.278518"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150119013050"]]
+  [1m[36m (115.9ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_controller_action_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_controller_action_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+
+
+
+Started POST "/api/v1/users/login" for 127.0.0.1 at 2015-01-19 11:15:47 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Api::V1::UsersController#login as JSON
+  Parameters: {"password"=>"[FILTERED]", "email"=>"admin@gmail.com"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."password" = '81dc9bdb52d04dc20036dbd8313ed055' AND "users"."email" = 'admin@gmail.com'  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mApiKey Load (0.2ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."user_id" = ? LIMIT 1[0m  [["user_id", 1]]
+Completed 200 OK in 68ms (Views: 0.2ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/api/v1/companies/1/vehicles?token=8e5f87059e0d6fc8dc55679f73b0c18a" for 127.0.0.1 at 2015-01-19 11:16:22 -0500
+Processing by Api::V1::CompaniesController#get_vehicles as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a", "id"=>"1"}
+  [1m[35mApiKey Load (0.2ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.3ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.6ms)[0m  SELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 16]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCompany Load (0.2ms)[0m  [1mSELECT  "companies".* FROM "companies"  WHERE "companies"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mVehicle Load (0.2ms)[0m  SELECT  "vehicles".* FROM "vehicles"  WHERE "vehicles"."company_id" = ? LIMIT 2 OFFSET 0  [["company_id", 1]]
+Completed 206 Partial Content in 91ms (Views: 0.4ms | ActiveRecord: 4.4ms)
+
+
+Started GET "/api/v1/companies/1/vehicles?token=8e5f87059e0d6fc8dc55679f73b0c18a" for 127.0.0.1 at 2015-01-19 11:16:28 -0500
+Processing by Api::V1::CompaniesController#get_vehicles as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a", "id"=>"1"}
+  [1m[36mApiKey Load (0.2ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.3ms)[0m  [1mSELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?[0m  [["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 16]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCompany Load (0.2ms)[0m  SELECT  "companies".* FROM "companies"  WHERE "companies"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mVehicle Load (0.3ms)[0m  [1mSELECT  "vehicles".* FROM "vehicles"  WHERE "vehicles"."company_id" = ? LIMIT 11 OFFSET 0[0m  [["company_id", 1]]
+Completed 206 Partial Content in 38ms (Views: 0.2ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/api/v1/companies/2/vehicles?token=8e5f87059e0d6fc8dc55679f73b0c18a" for 127.0.0.1 at 2015-01-19 11:16:37 -0500
+Processing by Api::V1::CompaniesController#get_vehicles as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a", "id"=>"2"}
+  [1m[35mApiKey Load (0.2ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.4ms)[0m  SELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 16]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCompany Load (0.1ms)[0m  [1mSELECT  "companies".* FROM "companies"  WHERE "companies"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mVehicle Load (0.1ms)[0m  SELECT  "vehicles".* FROM "vehicles"  WHERE "vehicles"."company_id" = ? LIMIT 11 OFFSET 0  [["company_id", 2]]
+Completed 206 Partial Content in 34ms (Views: 0.1ms | ActiveRecord: 2.4ms)
+
+
+Started POST "/api/v1/companies/" for 127.0.0.1 at 2015-01-19 11:17:02 -0500
+Processing by Api::V1::CompaniesController#create as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a"}
+  [1m[36mApiKey Load (0.2ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.3ms)[0m  [1mSELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?[0m  [["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 16]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mCompany Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "companies"  WHERE "companies"."name" IS NULL LIMIT 1[0m
+  [1m[35mCompany Exists (0.1ms)[0m  SELECT  1 AS one FROM "companies"  WHERE "companies"."nit" IS NULL LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+Completed 400 Bad Request in 44ms (Views: 0.3ms | ActiveRecord: 2.2ms)
+
+
+Started POST "/api/v1/vehicle/" for 127.0.0.1 at 2015-01-19 11:17:19 -0500
+
+ActionController::RoutingError (No route matches [POST] "/api/v1/vehicle"):
+  actionpack (4.1.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (4.1.8) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.1.8) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.1.8) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.1.8) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.1.8) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.1.8) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.1.8) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.1.8) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  activesupport (4.1.8) lib/active_support/cache/strategy/local_cache_middleware.rb:26:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  actionpack (4.1.8) lib/action_dispatch/middleware/static.rb:84:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  rack-cors (0.3.1) lib/rack/cors.rb:72:in `call'
+  railties (4.1.8) lib/rails/engine.rb:514:in `call'
+  railties (4.1.8) lib/rails/application.rb:144:in `call'
+  rack-cors (0.3.1) lib/rack/cors.rb:72:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  rack (1.5.2) lib/rack/handler/webrick.rb:60:in `service'
+  /home/warlock/.rvm/rubies/ruby-2.1.2/lib/ruby/2.1.0/webrick/httpserver.rb:138:in `service'
+  /home/warlock/.rvm/rubies/ruby-2.1.2/lib/ruby/2.1.0/webrick/httpserver.rb:94:in `run'
+  /home/warlock/.rvm/rubies/ruby-2.1.2/lib/ruby/2.1.0/webrick/server.rb:295:in `block in start_thread'
+
+
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.8ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/routes/_route.html.erb (9.0ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/routes/_table.html.erb (32.7ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (91.7ms)
+
+
+Started POST "/api/v1/vehicles/" for 127.0.0.1 at 2015-01-19 11:17:25 -0500
+Processing by Api::V1::VehiclesController#create as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a"}
+  [1m[35mApiKey Load (0.2ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 16]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 38]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+Completed 500 Internal Server Error in 27ms
+
+NoMethodError (undefined method `upcase' for nil:NilClass):
+  app/models/vehicle.rb:11:in `create_from_model'
+  app/controllers/api/v1/vehicles_controller.rb:118:in `create'
+
+
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.9ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.3ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (17.7ms)
+
+
+Started POST "/api/v1/vehicles" for 127.0.0.1 at 2015-01-19 11:17:47 -0500
+Processing by Api::V1::VehiclesController#create as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a"}
+  [1m[35mApiKey Load (0.3ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.5ms)[0m  SELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 16]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 38]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+Completed 500 Internal Server Error in 29ms
+
+NoMethodError (undefined method `upcase' for nil:NilClass):
+  app/models/vehicle.rb:11:in `create_from_model'
+  app/controllers/api/v1/vehicles_controller.rb:118:in `create'
+
+
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.7ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.1ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (16.5ms)
+
+
+Started POST "/api/v1/vehicles" for 127.0.0.1 at 2015-01-19 11:17:54 -0500
+Processing by Api::V1::VehiclesController#create as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a"}
+  [1m[35mApiKey Load (0.3ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.7ms)[0m  SELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 16]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 38]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+Completed 500 Internal Server Error in 25ms
+
+NoMethodError (undefined method `upcase' for nil:NilClass):
+  app/models/vehicle.rb:11:in `create_from_model'
+  app/controllers/api/v1/vehicles_controller.rb:118:in `create'
+
+
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.6ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.0ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.1ms)
+  Rendered /home/warlock/.rvm/gems/ruby-2.1.2/gems/actionpack-4.1.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (14.1ms)
+
+
+Started POST "/api/v1/vehicles" for 127.0.0.1 at 2015-01-19 11:20:04 -0500
+Processing by Api::V1::VehiclesController#create as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a"}
+  [1m[35mApiKey Load (0.2ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.3ms)[0m  SELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 16]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 38]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mVehicle Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" IS NULL LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+Completed 400 Bad Request in 62ms (Views: 0.2ms | ActiveRecord: 4.1ms)
+
+
+Started POST "/api/v1/vehicles" for 127.0.0.1 at 2015-01-19 11:21:03 -0500
+Processing by Api::V1::VehiclesController#create as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a", "brand"=>"Porche", "model"=>"2000", "license_plate"=>"XRT123", "company_id"=>"1"}
+  [1m[36mApiKey Load (0.2ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.4ms)[0m  [1mSELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?[0m  [["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 16]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 38]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 38]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 38]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'XRT123' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Porche"], ["company_id", 1], ["created_at", "2015-01-19 16:21:03.643559"], ["license_plate", "XRT123"], ["model", "2000"], ["updated_at", "2015-01-19 16:21:03.643559"]]
+  [1m[35m (183.5ms)[0m  commit transaction
+  [1m[36mVehicle Load (0.5ms)[0m  [1mSELECT  "vehicles".* FROM "vehicles"   ORDER BY "vehicles"."id" DESC LIMIT 1[0m
+Completed 201 Created in 218ms (Views: 0.5ms | ActiveRecord: 186.7ms)
+
+
+Started GET "/api/v1/companies/1/vehicles?token=8e5f87059e0d6fc8dc55679f73b0c18a&brand=Porche&model=2000&license_plate=XRT123&company_id=1" for 127.0.0.1 at 2015-01-19 11:21:20 -0500
+Processing by Api::V1::CompaniesController#get_vehicles as JSON
+  Parameters: {"token"=>"8e5f87059e0d6fc8dc55679f73b0c18a", "brand"=>"Porche", "model"=>"2000", "license_plate"=>"XRT123", "company_id"=>"1", "id"=>"1"}
+  [1m[35mApiKey Load (0.3ms)[0m  SELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "api_keys".* FROM "api_keys"  WHERE "api_keys"."token" = '8e5f87059e0d6fc8dc55679f73b0c18a' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.3ms)[0m  SELECT "controller_actions".* FROM "controller_actions" INNER JOIN "controller_actions_roles" ON "controller_actions"."id" = "controller_actions_roles"."controller_action_id" WHERE "controller_actions_roles"."role_id" = ?  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 16]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 30]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 30]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "users".* FROM "users"  WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCompany Load (0.2ms)[0m  [1mSELECT  "companies".* FROM "companies"  WHERE "companies"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mVehicle Load (0.2ms)[0m  SELECT  "vehicles".* FROM "vehicles"  WHERE "vehicles"."company_id" = ? LIMIT 11 OFFSET 0  [["company_id", 1]]
+Completed 206 Partial Content in 40ms (Views: 0.1ms | ActiveRecord: 2.7ms)
+  [1m[36m (106.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (98.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20141217212455)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141217212455"]]
+  [1m[35m (120.9ms)[0m  commit transaction
+Migrating to CreateApiKeys (20141217215541)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "api_keys" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "token" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141217215541"]]
+  [1m[35m (123.7ms)[0m  commit transaction
+Migrating to RemoveEmailFromUsers (20141218151456)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TEMPORARY TABLE "ausers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "users"[0m
+  [1m[35m (0.3ms)[0m  DROP TABLE "users"
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "ausers"
+  [1m[36m (0.3ms)[0m  [1mDROP TABLE "ausers"[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141218151456"]]
+  [1m[36m (120.1ms)[0m  [1mcommit transaction[0m
+Migrating to CreateRoles (20141223194758)
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "roles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223194758"]]
+  [1m[36m (128.9ms)[0m  [1mcommit transaction[0m
+Migrating to CreateControllerActions (20141223195024)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.7ms)[0m  [1mCREATE TABLE "controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223195024"]]
+  [1m[36m (121.2ms)[0m  [1mcommit transaction[0m
+Migrating to PermisosTable (20141223202326)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mCREATE TABLE "roles_controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "role_id" integer, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223202326"]]
+  [1m[36m (153.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddControllerToControllerAction (20141223203652)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "controller_actions" ADD "controller" varchar(255)[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223203652"]]
+  [1m[36m (122.6ms)[0m  [1mcommit transaction[0m
+Migrating to AddActionToControllerAction (20141223203746)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "controller_actions" ADD "action" varchar(255)[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223203746"]]
+  [1m[36m (112.2ms)[0m  [1mcommit transaction[0m
+Migrating to RemoveActionFromControllerAction (20141223204150)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.6ms)[0m  [1mCREATE TEMPORARY TABLE "acontroller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime, "controller" varchar(255), "action" varchar(255)) [0m
+  [1m[35m (0.2ms)[0m  SELECT * FROM "controller_actions"
+  [1m[36m (0.6ms)[0m  [1mDROP TABLE "controller_actions"[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime, "controller" varchar(255)) 
+  [1m[36m (0.2ms)[0m  [1mSELECT * FROM "acontroller_actions"[0m
+  [1m[35m (0.4ms)[0m  DROP TABLE "acontroller_actions"
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141223204150"]]
+  [1m[35m (129.5ms)[0m  commit transaction
+Migrating to RemoveControllerFromControllerAction (20141223204337)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  CREATE TEMPORARY TABLE "acontroller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime, "controller" varchar(255)) 
+  [1m[36m (0.2ms)[0m  [1mSELECT * FROM "controller_actions"[0m
+  [1m[35m (0.5ms)[0m  DROP TABLE "controller_actions"
+  [1m[36m (0.1ms)[0m  [1mCREATE TABLE "controller_actions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "controller_action_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "acontroller_actions"
+  [1m[36m (0.1ms)[0m  [1mDROP TABLE "acontroller_actions"[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223204337"]]
+  [1m[36m (135.2ms)[0m  [1mcommit transaction[0m
+Migrating to AddNameToControllerAction (20141223204410)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "controller_actions" ADD "name" varchar(255)[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223204410"]]
+  [1m[36m (111.9ms)[0m  [1mcommit transaction[0m
+Migrating to RemoveRolesControllerActions (20141223211241)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.7ms)[0m  [1mDROP TABLE "roles_controller_actions"[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223211241"]]
+  [1m[36m (120.5ms)[0m  [1mcommit transaction[0m
+Migrating to RolesControllerActions (20141223211400)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "roles_controller_actions" ("role_id" integer, "controller_action_id" integer) [0m
+  [1m[35m (0.4ms)[0m  CREATE  INDEX "index_roles_controller_actions_on_role_id" ON "roles_controller_actions" ("role_id")
+  [1m[36m (0.3ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_roles_controller_actions_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_roles_controller_actions_on_role_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  CREATE  INDEX "index_roles_controller_actions_on_controller_action_id" ON "roles_controller_actions" ("controller_action_id")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20141223211400"]]
+  [1m[35m (116.4ms)[0m  commit transaction
+Migrating to Tabla2 (20141223215404)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "controller_actions_roles" ("role_id" integer, "controller_action_id" integer) 
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_controller_actions_roles_on_role_id" ON "controller_actions_roles" ("role_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_controller_actions_roles_on_controller_action_id" ON "controller_actions_roles" ("controller_action_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223215404"]]
+  [1m[36m (130.2ms)[0m  [1mcommit transaction[0m
+Migrating to RemoveUselessTable (20141223225317)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.9ms)[0m  [1mDROP TABLE "roles_controller_actions"[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141223225317"]]
+  [1m[36m (111.9ms)[0m  [1mcommit transaction[0m
+Migrating to AddRoleIdToUser (20141226160928)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "users" ADD "role_id" integer[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "users" ADD "email" varchar(255)
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD "password" varchar(255)[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141226160928"]]
+  [1m[36m (127.5ms)[0m  [1mcommit transaction[0m
+Migrating to Initialization (20141231171743)
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36mRole Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "roles"  WHERE "roles"."name" = 'admin' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "roles" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:30:23.469375"], ["name", "admin"], ["updated_at", "2015-01-19 16:30:23.469375"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", "2015-01-19 16:30:23.479843"], ["name", "users"], ["updated_at", "2015-01-19 16:30:23.479843"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:23.481137"], ["name", "index"], ["updated_at", "2015-01-19 16:30:23.481137"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:23.482030"], ["name", "create"], ["updated_at", "2015-01-19 16:30:23.482030"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:23.482764"], ["name", "destroy"], ["updated_at", "2015-01-19 16:30:23.482764"]]
+  [1m[36mRole Load (0.1ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 1], ["role_id", 1]]
+  [1m[35mUser Exists (0.1ms)[0m  SELECT  1 AS one FROM "users"  WHERE "users"."email" = 'admin@gmail.com' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password", "role_id", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["created_at", "2015-01-19 16:30:23.508775"], ["email", "admin@gmail.com"], ["name", "Sebastian"], ["password", "81dc9bdb52d04dc20036dbd8313ed055"], ["role_id", 1], ["updated_at", "2015-01-19 16:30:23.508775"]]
+  [1m[35mApiKey Exists (0.1ms)[0m  SELECT  1 AS one FROM "api_keys"  WHERE "api_keys"."token" = '4ff7be996471e82feaecd89dade6cab8' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "api_keys" ("created_at", "token", "updated_at", "user_id") VALUES (?, ?, ?, ?)[0m  [["created_at", "2015-01-19 16:30:23.513561"], ["token", "4ff7be996471e82feaecd89dade6cab8"], ["updated_at", "2015-01-19 16:30:23.513561"], ["user_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20141231171743"]]
+  [1m[36m (141.0ms)[0m  [1mcommit transaction[0m
+Migrating to AddUpdateToControllerActions (20150101024325)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:23.664898"], ["name", "update"], ["updated_at", "2015-01-19 16:30:23.664898"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150101024325"]]
+  [1m[36m (138.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddRoleClient (20150101193243)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mRole Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "roles"  WHERE "roles"."name" = 'client' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "roles" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:30:23.809921"], ["name", "client"], ["updated_at", "2015-01-19 16:30:23.809921"]]
+  [1m[36mUser Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "users"  WHERE "users"."email" = 'laura@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password", "role_id", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["created_at", "2015-01-19 16:30:23.811584"], ["email", "laura@gmail.com"], ["name", "Laura"], ["password", "81dc9bdb52d04dc20036dbd8313ed055"], ["role_id", 2], ["updated_at", "2015-01-19 16:30:23.811584"]]
+  [1m[36mApiKey Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "api_keys"  WHERE "api_keys"."token" = '0a450622c691aaab6174fa3cc5ecff4b' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "api_keys" ("created_at", "token", "updated_at", "user_id") VALUES (?, ?, ?, ?)  [["created_at", "2015-01-19 16:30:23.812525"], ["token", "0a450622c691aaab6174fa3cc5ecff4b"], ["updated_at", "2015-01-19 16:30:23.812525"], ["user_id", 2]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 4], ["role_id", 2]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 5], ["role_id", 2]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150101193243"]]
+  [1m[35m (134.5ms)[0m  commit transaction
+Migrating to AddLoginAndShowToControllerActions (20150102181920)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:23.959839"], ["name", "login"], ["updated_at", "2015-01-19 16:30:23.959839"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:23.963561"], ["name", "show"], ["updated_at", "2015-01-19 16:30:23.963561"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150102181920"]]
+  [1m[36m (107.5ms)[0m  [1mcommit transaction[0m
+Migrating to RolesActions (20150102212303)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", "2015-01-19 16:30:24.076975"], ["name", "roles"], ["updated_at", "2015-01-19 16:30:24.076975"]]
+  [1m[35mControllerAction Load (0.4ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'roles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:24.082606"], ["name", "index"], ["updated_at", "2015-01-19 16:30:24.082606"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:24.085497"], ["name", "show"], ["updated_at", "2015-01-19 16:30:24.085497"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:24.086228"], ["name", "create"], ["updated_at", "2015-01-19 16:30:24.086228"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:24.087248"], ["name", "destroy"], ["updated_at", "2015-01-19 16:30:24.087248"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:24.088136"], ["name", "update"], ["updated_at", "2015-01-19 16:30:24.088136"]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 8], ["role_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150102212303"]]
+  [1m[36m (131.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddRoleToUsers (20150103202650)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mControllerAction Load (0.6ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:24.230024"], ["name", "role"], ["updated_at", "2015-01-19 16:30:24.230024"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150103202650"]]
+  [1m[35m (102.1ms)[0m  commit transaction
+Migrating to AddUpdatePasswordToUsers (20150103220613)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.2ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:24.336798"], ["name", "update_password"], ["updated_at", "2015-01-19 16:30:24.336798"]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update_password'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 15], ["role_id", 2]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150103220613"]]
+  [1m[35m (107.6ms)[0m  commit transaction
+Migrating to ControllerActionsActions (20150108175824)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:30:24.454731"], ["name", "controller_actions"], ["updated_at", "2015-01-19 16:30:24.454731"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'controller_actions' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 16], ["created_at", "2015-01-19 16:30:24.458460"], ["name", "index"], ["updated_at", "2015-01-19 16:30:24.458460"]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 16], ["role_id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150108175824"]]
+  [1m[35m (116.1ms)[0m  commit transaction
+Migrating to AdjustAdminPermitions (20150109164830)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mRole Load (0.2ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.6ms)[0m  DELETE FROM "controller_actions_roles" WHERE "controller_actions_roles"."role_id" = ? AND "controller_actions_roles"."controller_action_id" = 1  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "controller_actions_roles" WHERE "controller_actions_roles"."role_id" = ? AND "controller_actions_roles"."controller_action_id" = 8  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 16]]
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "controller_actions_roles" WHERE "controller_actions_roles"."role_id" = ? AND "controller_actions_roles"."controller_action_id" = 16  [["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 2], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 3], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 4], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 5], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 6], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 7]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 7], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 9]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 9], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 10]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 10], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 11]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 11], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 12]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 12], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 13]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 13], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 14]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 14], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 15]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 15], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."id" = ? LIMIT 1[0m  [["id", 17]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 17], ["role_id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150109164830"]]
+  [1m[35m (114.9ms)[0m  commit transaction
+Migrating to AddUpdateRole (20150109185956)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.5ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 5], ["created_at", "2015-01-19 16:30:24.744760"], ["name", "update role_id"], ["updated_at", "2015-01-19 16:30:24.744760"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 5], ["created_at", "2015-01-19 16:30:24.746276"], ["name", "update password"], ["updated_at", "2015-01-19 16:30:24.746276"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 5], ["created_at", "2015-01-19 16:30:24.747001"], ["name", "update other users"], ["updated_at", "2015-01-19 16:30:24.747001"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 5], ["created_at", "2015-01-19 16:30:24.747666"], ["name", "update itself"], ["updated_at", "2015-01-19 16:30:24.747666"]]
+  [1m[35mRole Load (0.0ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mControllerAction Load (0.3ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update role_id'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 18], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 19], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update other users'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 20], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 21], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 5]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 21], ["role_id", 2]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150109185956"]]
+  [1m[36m (136.5ms)[0m  [1mcommit transaction[0m
+Migrating to AddPermissionsToRoles (20150109205119)
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36mControllerAction Load (0.4ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'roles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:24.902054"], ["name", "show_permissions"], ["updated_at", "2015-01-19 16:30:24.902054"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:24.903037"], ["name", "assign_permissions"], ["updated_at", "2015-01-19 16:30:24.903037"]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'show_permissions'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 8]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'assign_permissions'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 8]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 22], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 23], ["role_id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150109205119"]]
+  [1m[35m (131.8ms)[0m  commit transaction
+Migrating to AddPermissionsToUsersDestroy (20150110225901)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.4ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 4], ["created_at", "2015-01-19 16:30:25.046557"], ["name", "destroy other users"], ["updated_at", "2015-01-19 16:30:25.046557"]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 4], ["created_at", "2015-01-19 16:30:25.047524"], ["name", "destroy itself"], ["updated_at", "2015-01-19 16:30:25.047524"]]
+  [1m[35mRole Load (0.0ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy other users'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 4]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 24], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 4]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 25], ["role_id", 1]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy itself'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 4]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 25], ["role_id", 2]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150110225901"]]
+  [1m[36m (151.2ms)[0m  [1mcommit transaction[0m
+Migrating to AddPermissionsToUsersUpdatePassword (20150110233356)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mControllerAction Load (0.2ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update_password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 1]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 15], ["created_at", "2015-01-19 16:30:25.210970"], ["name", "update other users password"], ["updated_at", "2015-01-19 16:30:25.210970"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 15], ["created_at", "2015-01-19 16:30:25.212065"], ["name", "update own user password"], ["updated_at", "2015-01-19 16:30:25.212065"]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update other users password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 15]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 26], ["role_id", 1]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update own user password'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 15]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 27], ["role_id", 1]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update own user password'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 15]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 27], ["role_id", 2]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150110233356"]]
+  [1m[35m (188.4ms)[0m  commit transaction
+Migrating to AddSearchToUserAndRoles (20150111224947)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mControllerAction Load (0.4ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'users' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 1], ["created_at", "2015-01-19 16:30:25.414465"], ["name", "search"], ["updated_at", "2015-01-19 16:30:25.414465"]]
+  [1m[35mRole Load (0.0ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 28], ["role_id", 1]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'roles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 8], ["created_at", "2015-01-19 16:30:25.420820"], ["name", "search"], ["updated_at", "2015-01-19 16:30:25.420820"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 8]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 29], ["role_id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150111224947"]]
+  [1m[35m (134.6ms)[0m  commit transaction
+Migrating to CreateCompanies (20150118155450)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "companies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "phone" varchar(255), "representative" varchar(255), "nit" varchar(255), "address" varchar(255), "email" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118155450"]]
+  [1m[35m (156.7ms)[0m  commit transaction
+Migrating to CreateVehicles (20150118160057)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "vehicles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "brand" varchar(255), "model" varchar(255), "license_plate" varchar(255), "company_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118160057"]]
+  [1m[35m (126.6ms)[0m  commit transaction
+Migrating to CreateRides (20150118161448)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "rides" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "started_at" datetime, "ended_at" datetime, "average_speed" float, "vehicule_id" integer, "user_id" integer, "gps_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118161448"]]
+  [1m[35m (140.2ms)[0m  commit transaction
+Migrating to CreateGps (20150118161510)
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+  [1m[35m (7.8ms)[0m  CREATE TABLE "gps" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "battery" float, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118161510"]]
+  [1m[35m (353.2ms)[0m  commit transaction
+Migrating to CreateCoordinates (20150118161648)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "coordinates" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "ride_id" integer, "latitude" decimal, "longitude" decimal, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150118161648"]]
+  [1m[35m (155.8ms)[0m  commit transaction
+Migrating to CompaniesControllerActions (20150118172929)
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)  [["created_at", "2015-01-19 16:30:26.527037"], ["name", "companies"], ["updated_at", "2015-01-19 16:30:26.527037"]]
+  [1m[36mControllerAction Load (0.4ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'companies' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:30:26.532994"], ["name", "index"], ["updated_at", "2015-01-19 16:30:26.532994"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 30], ["created_at", "2015-01-19 16:30:26.534675"], ["name", "show"], ["updated_at", "2015-01-19 16:30:26.534675"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:30:26.535898"], ["name", "create"], ["updated_at", "2015-01-19 16:30:26.535898"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 30], ["created_at", "2015-01-19 16:30:26.537175"], ["name", "destroy"], ["updated_at", "2015-01-19 16:30:26.537175"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:30:26.538786"], ["name", "update"], ["updated_at", "2015-01-19 16:30:26.538786"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 30], ["created_at", "2015-01-19 16:30:26.539714"], ["name", "search"], ["updated_at", "2015-01-19 16:30:26.539714"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 30], ["created_at", "2015-01-19 16:30:26.540653"], ["name", "get_vehicles"], ["updated_at", "2015-01-19 16:30:26.540653"]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'index'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'show'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 30]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'create'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 30]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mControllerAction Load (0.1ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 30]]
+  [1m[36mControllerAction Load (0.1ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'get_vehicles'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 30]]
+  [1m[35mRole Load (0.1ms)[0m  SELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 31], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 32], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 33], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 34], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 35], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 36], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 37], ["role_id", 1]]
+  [1m[35mCompany Exists (0.1ms)[0m  SELECT  1 AS one FROM "companies"  WHERE "companies"."name" = 'Company1' LIMIT 1
+  [1m[36mCompany Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "companies"  WHERE "companies"."nit" = '123456789' LIMIT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "companies" ("address", "created_at", "email", "name", "nit", "phone", "representative", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["address", "CALLE 5A # 29 12"], ["created_at", "2015-01-19 16:30:26.562217"], ["email", "lauraherra@gmail.com"], ["name", "Company1"], ["nit", "123456789"], ["phone", "5608937"], ["representative", "Laura Herrera"], ["updated_at", "2015-01-19 16:30:26.562217"]]
+  [1m[36mCompany Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "companies"  WHERE "companies"."name" = 'Company2' LIMIT 1[0m
+  [1m[35mCompany Exists (0.1ms)[0m  SELECT  1 AS one FROM "companies"  WHERE "companies"."nit" = '987654321' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "companies" ("address", "created_at", "email", "name", "nit", "phone", "representative", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["address", "CALLE 100 # 14 83"], ["created_at", "2015-01-19 16:30:26.564321"], ["email", "joserodriguez@gmail.com"], ["name", "Company2"], ["nit", "987654321"], ["phone", "2776584"], ["representative", "Jose Rodriguez"], ["updated_at", "2015-01-19 16:30:26.564321"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150118172929"]]
+  [1m[36m (135.0ms)[0m  [1mcommit transaction[0m
+Migrating to VehiclesControllerActions (20150119013050)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "controller_actions" ("created_at", "name", "updated_at") VALUES (?, ?, ?)[0m  [["created_at", "2015-01-19 16:30:26.705211"], ["name", "vehicles"], ["updated_at", "2015-01-19 16:30:26.705211"]]
+  [1m[35mControllerAction Load (0.4ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."name" = 'vehicles' AND "controller_actions"."controller_action_id" IS NULL  ORDER BY "controller_actions"."id" ASC LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 38], ["created_at", "2015-01-19 16:30:26.710933"], ["name", "index"], ["updated_at", "2015-01-19 16:30:26.710933"]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 38], ["created_at", "2015-01-19 16:30:26.713539"], ["name", "show"], ["updated_at", "2015-01-19 16:30:26.713539"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 38], ["created_at", "2015-01-19 16:30:26.714257"], ["name", "create"], ["updated_at", "2015-01-19 16:30:26.714257"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 38], ["created_at", "2015-01-19 16:30:26.715320"], ["name", "destroy"], ["updated_at", "2015-01-19 16:30:26.715320"]]
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["controller_action_id", 38], ["created_at", "2015-01-19 16:30:26.716331"], ["name", "update"], ["updated_at", "2015-01-19 16:30:26.716331"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions" ("controller_action_id", "created_at", "name", "updated_at") VALUES (?, ?, ?, ?)  [["controller_action_id", 38], ["created_at", "2015-01-19 16:30:26.717453"], ["name", "search"], ["updated_at", "2015-01-19 16:30:26.717453"]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'index'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 38]]
+  [1m[35mControllerAction Load (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'show'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 38]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'create'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 38]]
+  [1m[35mControllerAction Load (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'destroy'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 38]]
+  [1m[36mControllerAction Load (0.0ms)[0m  [1mSELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'update'  ORDER BY "controller_actions"."id" ASC LIMIT 1[0m  [["controller_action_id", 38]]
+  [1m[35mControllerAction Load (0.0ms)[0m  SELECT  "controller_actions".* FROM "controller_actions"  WHERE "controller_actions"."controller_action_id" = ? AND "controller_actions"."name" = 'search'  ORDER BY "controller_actions"."id" ASC LIMIT 1  [["controller_action_id", 38]]
+  [1m[36mRole Load (0.0ms)[0m  [1mSELECT  "roles".* FROM "roles"  WHERE "roles"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 39], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 40], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 41], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 42], ["role_id", 1]]
+  [1m[35mSQL (0.0ms)[0m  INSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)  [["controller_action_id", 43], ["role_id", 1]]
+  [1m[36mSQL (0.0ms)[0m  [1mINSERT INTO "controller_actions_roles" ("controller_action_id", "role_id") VALUES (?, ?)[0m  [["controller_action_id", 44], ["role_id", 1]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'SIC261' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Lanos"], ["company_id", 1], ["created_at", "2015-01-19 16:30:26.737526"], ["license_plate", "SIC261"], ["model", "2002"], ["updated_at", "2015-01-19 16:30:26.737526"]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'FTY264' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Aveo"], ["company_id", 1], ["created_at", "2015-01-19 16:30:26.739616"], ["license_plate", "FTY264"], ["model", "2008"], ["updated_at", "2015-01-19 16:30:26.739616"]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'TYU457' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Ford"], ["company_id", 2], ["created_at", "2015-01-19 16:30:26.741836"], ["license_plate", "TYU457"], ["model", "2011"], ["updated_at", "2015-01-19 16:30:26.741836"]]
+  [1m[35mVehicle Exists (0.1ms)[0m  SELECT  1 AS one FROM "vehicles"  WHERE "vehicles"."license_plate" = 'GTY945' LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "vehicles" ("brand", "company_id", "created_at", "license_plate", "model", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["brand", "Chevrolet"], ["company_id", 2], ["created_at", "2015-01-19 16:30:26.743365"], ["license_plate", "GTY945"], ["model", "2005"], ["updated_at", "2015-01-19 16:30:26.743365"]]
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150119013050"]]
+  [1m[36m (123.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.6ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_controller_action_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_controller_action_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_controller_actions_roles_on_role_id' AND type='index'
+

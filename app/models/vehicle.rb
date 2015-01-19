@@ -8,7 +8,7 @@ class Vehicle < ActiveRecord::Base
 	validates :company_id, presence: true
 
 	def self.create_from_model(hash)
-    	error_messages = self.create(:brand => hash[:brand], :model => hash[:model], :license_plate => hash[:license_plate].upcase, :company_id => hash[:company_id]).errors.messages #creates vehicle or gets the error messsages
+    	error_messages = self.create(:brand => hash[:brand], :model => hash[:model], :license_plate => hash[:license_plate].nil? ?  hash[:license_plate] : hash[:license_plate].upcase, :company_id => hash[:company_id]).errors.messages #creates vehicle or gets the error messsages
       	if error_messages.to_a.length != 0  #If there are errors I return them
             return {errors: error_messages}, 400
         else
