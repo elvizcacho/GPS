@@ -24,7 +24,7 @@ class CompaniesControllerActions < ActiveRecord::Migration
   	admin = Role.find(1)
   	admin.controller_actions << actions
 
-  	#crates two companies to test
+  	#creates two companies to test
   	Company.create(:name => "Company1", :phone => "5608937", :representative => "Laura Herrera", :nit => "123456789", :address => "CALLE 5A # 29 12", :email => "lauraherra@gmail.com")
   	Company.create(:name => "Company2", :phone => "2776584", :representative => "Jose Rodriguez", :nit => "987654321", :address => "CALLE 100 # 14 83", :email => "joserodriguez@gmail.com")
   end

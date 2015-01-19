@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118172929) do
+ActiveRecord::Schema.define(version: 20150119013050) do
 
   create_table "api_keys", force: true do |t|
     t.integer  "user_id"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20150118172929) do
   create_table "vehicles", force: true do |t|
     t.string   "brand"
     t.string   "model"
-    t.string   "placa"
+    t.string   "license_plate"
     t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"

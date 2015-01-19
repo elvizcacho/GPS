@@ -49,7 +49,7 @@ es:
   roles:
     index:
       response: "El rango no fue definido en el header"
-    created:
+    create:
       response: "Rol fue creado"
     delete:
       response: "Rol %{id} fue eliminado"
@@ -59,12 +59,22 @@ es:
   companies:
     index:
       response: "El rango no fue definido en el header"
-    created:
+    create:
       response: "Compañia fue creada"
     delete:
       response: "Compañia %{id} fue eliminada"
     update:
       response: "Compañia %{id} fue actualizada"
+
+  vehicles:
+    index:
+      response: "El rango no fue definido en el header"
+    create:
+      response: "Vehiculo fue creado"
+    delete:
+      response: "Vehiculo %{id} fue eliminado"
+    update:
+      response: "Vehiculo %{id} fue actualizado"
 
 #Validation errors
   activerecord:
@@ -109,3 +119,17 @@ es:
             email:
               blank: "email no puede ser nulo"
               invalid: "email no valido"
+
+        vehicle:
+          attributes:
+            brand:
+              blank: "el marca del vehiculo no puede ser nula"
+            model:
+              blank: "el modelo no puede ser nulo"
+              not_a_number: "no es un numero entero"
+            license_plate:
+              blank: "la placa no puede ser nula"
+              invalid: "placa invalida"
+              taken: "la placa ya ha sido registrada"
+            company_id:
+              blank: "el carro debe pertener a alguna compañia"

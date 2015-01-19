@@ -166,3 +166,27 @@
 44:
   role_id : 1
   controller_action_id: 36
+
+45:
+  role_id : 1
+  controller_action_id: 38
+
+46:
+  role_id : 1
+  controller_action_id: 39
+
+47:
+  role_id : 1
+  controller_action_id: 40
+
+48:
+  role_id : 1
+  controller_action_id: 41
+
+49:
+  role_id : 1
+  controller_action_id: 42
+
+50:
+  role_id : 1
+  controller_action_id: 43

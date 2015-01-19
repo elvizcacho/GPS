@@ -1,0 +1,28 @@
+
+1:
+  id: 1
+  brand: Lanos
+  model: 2002
+  license_plate: SIC261
+  company_id: 1
+
+2:
+  id: 2
+  brand: Aveo
+  model: 2008
+  license_plate: VTE345
+  company_id: 1
+
+3:
+  id: 3
+  brand: Ford
+  model: 2011
+  license_plate: SIC268
+  company_id: 2
+
+4:
+  id: 4
+  brand: Chevrolet
+  model: 2005
+  license_plate: VTE344
+  company_id: 2

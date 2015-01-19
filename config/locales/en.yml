@@ -49,22 +49,32 @@ en:
   roles:
     index:
       response: "No rage header defined"
-    created:
+    create:
       response: "Role was created"
     delete:
       response: "Role %{id} was deleted"
     update:
       response: "Role %{id} was updated"
-    
+
   companies:
     index:
       response: "No rage header defined"
-    created:
+    create:
       response: "Company was created"
     delete:
       response: "Company %{id} was deleted"
     update:
       response: "Company %{id} was updated"
+
+  vehicles:
+    index:
+      response: "No rage header defined"
+    create:
+      response: "Vehicle was created"
+    delete:
+      response: "Vehicle %{id} was deleted"
+    update:
+      response: "Vehicle %{id} was updated"
 
 #Validation errors
   activerecord:
@@ -78,3 +88,7 @@ en:
           attributes:
             email:
               invalid: "invalid email"
+        vehicle: 
+          attributes:
+            license_plate:
+              invalid: "invalid colombian license plate"

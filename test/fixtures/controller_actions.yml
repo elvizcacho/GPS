@@ -178,3 +178,38 @@
   id: 36
   name: search
   controller_action_id: 30
+
+37:
+  id: 37
+  name: vehicles
+  controller_action_id: 
+
+38:
+  id: 38
+  name: index
+  controller_action_id: 37
+
+39:
+  id: 39
+  name: show
+  controller_action_id: 37
+
+40:
+  id: 40
+  name: create
+  controller_action_id: 37
+
+41:
+  id: 41
+  name: destroy
+  controller_action_id: 37
+
+42:
+  id: 42
+  name: update
+  controller_action_id: 37
+
+43:
+  id: 43
+  name: search
+  controller_action_id: 37

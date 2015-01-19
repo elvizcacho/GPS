@@ -10,18 +10,18 @@ class Company < ActiveRecord::Base
 	validates :email, presence: true, email: true
 
     def self.create_from_model(hash)
-    	error_messages = self.create(:name => hash[:name], :phone => hash[:phone], :representative => hash[:representative], :nit => hash[:nit], :address => hash[:address], :email => hash[:email]).errors.messages #creates role or gets the error messsages
+    	error_messages = self.create(:name => hash[:name], :phone => hash[:phone], :representative => hash[:representative], :nit => hash[:nit], :address => hash[:address], :email => hash[:email]).errors.messages #creates vehicle or gets the error messsages
       	if error_messages.to_a.length != 0  #If there are errors I return them
             return {errors: error_messages}, 400
         else
-            return {response: I18n.t('roles.create.response'), role_id: self.last.id}, 201
+            return {response: I18n.t('company.create.response'), role_id: self.last.id}, 201
         end
     end
 
     def self.destroy_from_model(hash)
     	begin
             self.find(hash[:id]).destroy  #deletes this company
-            return {response: I18n.t('roles.delete.response', id: hash[:id])}, 200
+            return {response: I18n.t('company.delete.response', id: hash[:id])}, 200
         rescue Exception => e #If company is not found an exception is arise.
             return {response: "#{e}"}, 404
         end
@@ -40,7 +40,7 @@ class Company < ActiveRecord::Base
             ) #assign the model attributes but not save
             if company.valid? #valids the attributes
                	company.save  #saves the attributes into table company
-               	return {response: I18n.t('roles.update.response', id: hash[:id])}, 200
+               	return {response: I18n.t('company.update.response', id: hash[:id])}, 200
             else
                	error_messages = company.errors.messages  #if there are errors, these ones are returned
                	return {errors: error_messages}, 400
