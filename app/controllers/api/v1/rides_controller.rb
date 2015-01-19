@@ -121,7 +121,7 @@ module Api
         #         "response": "Ride was created",
         #         "id": 2
         #      }
-        #
+        
 
         def create
           	response, status = Ride.create_from_model(:started_at => params[:started_at], :ended_at => params[:ended_at], :average_speed => params[:average_speed], :vehicle_id => params[:vehicle_id], :user_id => params[:user_id], :gps_id => params[:gps_id])

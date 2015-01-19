@@ -1,8 +1,8 @@
-Mon, 19 Jan 2015 13:22:18 -0500
+Mon, 19 Jan 2015 13:25:42 -0500
 README.rdoc	Sun, 18 Jan 2015 10:10:09 -0500
 app/controllers/api/v1/companies_controller.rb	Mon, 19 Jan 2015 12:08:15 -0500
 app/controllers/api/v1/controller_actions_controller.rb	Sun, 18 Jan 2015 10:10:12 -0500
-app/controllers/api/v1/rides_controller.rb	Mon, 19 Jan 2015 13:08:36 -0500
+app/controllers/api/v1/rides_controller.rb	Mon, 19 Jan 2015 13:25:11 -0500
 app/controllers/api/v1/roles_controller.rb	Sun, 18 Jan 2015 16:07:58 -0500
 app/controllers/api/v1/users_controller.rb	Sun, 18 Jan 2015 10:10:12 -0500
 app/controllers/api/v1/vehicles_controller.rb	Sun, 18 Jan 2015 21:41:33 -0500
