@@ -75,7 +75,7 @@ module Api
         #
         #   resp.body
         #   =>   {
-        #            "id": 1,
+        #            "id": 2,
         #            "started_at": "2001-11-30T19:00:00.000Z",
         #            "ended_at": "2001-12-01T01:00:00.000Z",
         #            "average_speed": 33.2,
